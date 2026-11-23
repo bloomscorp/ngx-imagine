@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The same Node as development (.node-version). Angular 22's CLI refuses
+      # anything older than 22.22.3 / 24.15.0.
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      # During development package.json may point at a local copy of the core
+      # (file:../imagine.js), which does not exist here. RELEASING.md says when to
+      # switch to the published one.
+      - name: The core comes from npm
+        run: |
+          if node -e "process.exit(String(require('./package.json').devDependencies['@bloomscorp/imagine.js']).startsWith('file:') ? 0 : 1)"; then
+            echo "::error::package.json uses file:../imagine.js. Publish @bloomscorp/imagine.js, then: npm install -D @bloomscorp/imagine.js@^0.1.0 (RELEASING.md)"
+            exit 1
+          fi
+
+      - run: npm ci
+
+      - name: Build the library
+        run: npm run build
+
+      - name: Type-check the library and its tests
+        run: npm run lint
+
+      # Coverage thresholds (100% per library file) are enforced here.
+      - name: Test, with coverage thresholds
+        run: npm run test:coverage
+
+      - name: Library and workspace versions agree
+        run: npm run check-version
+
+      # Pack the library exactly as npm publish will, and check the tarball.
+      - name: Packaging gate
+        run: npm run verify:package
+
+      # The proof behind the peer range: every Angular major it claims links
+      # and type-checks the packed tarball. Needs network.
+      - name: Every Angular major in the peer range links and compiles it
+        run: npm run verify:compat

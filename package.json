@@ -1,0 +1,46 @@
+{
+  "name": "ngx-imagine",
+  "version": "0.1.0",
+  "homepage": "https://github.com/bloomscorp/ngx-imagine",
+  "bugs": {
+    "url": "https://github.com/bloomscorp/ngx-imagine/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bloomscorp/ngx-imagine"
+  },
+  "author": "Bloomscorp",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "build": "ng build @bloomscorp/ngx-imagine --configuration production",
+    "watch": "ng build @bloomscorp/ngx-imagine --watch --configuration development",
+    "lint": "tsc -p projects/bloomscorp/ngx-imagine/tsconfig.spec.json --noEmit",
+    "test": "ng test @bloomscorp/ngx-imagine --watch=false",
+    "test:coverage": "ng test @bloomscorp/ngx-imagine --watch=false --coverage",
+    "sync-version": "node scripts/sync-library-version.js",
+    "check-version": "node scripts/sync-library-version.js --check",
+    "verify:package": "node scripts/verify-package.mjs",
+    "verify:compat": "node scripts/verify-angular-compat.mjs"
+  },
+  "dependencies": {
+    "@angular/common": "^22.3.0",
+    "@angular/compiler": "^22.3.0",
+    "@angular/core": "^22.3.0",
+    "@angular/platform-browser": "^22.3.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.3.0",
+    "@angular/cli": "~22.3.0",
+    "@angular/compiler-cli": "^22.3.0",
+    "@bloomscorp/imagine.js": "^0.1.0",
+    "@vitest/coverage-v8": "^4.1.12",
+    "jsdom": "^27.4.0",
+    "ng-packagr": "^22.3.0",
+    "typescript": "~6.0.3",
+    "vitest": "^4.1.12"
+  }
+}

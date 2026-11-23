@@ -1,0 +1,31 @@
+{
+  "name": "@bloomscorp/ngx-imagine",
+  "version": "0.1.0",
+  "description": "Angular wrapper for Imagine: provideImagine() and an ImagineService with signals, on @bloomscorp/imagine.js.",
+  "keywords": [
+    "angular",
+    "imagine",
+    "bloomscorp",
+    "blooms-ai",
+    "image-generation",
+    "signals"
+  ],
+  "homepage": "https://github.com/bloomscorp/ngx-imagine#readme",
+  "bugs": {
+    "url": "https://github.com/bloomscorp/ngx-imagine/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bloomscorp/ngx-imagine.git"
+  },
+  "license": "MIT",
+  "author": "Bloomscorp",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": ">=19.0.0 <23.0.0",
+    "@bloomscorp/imagine.js": "^0.1.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
